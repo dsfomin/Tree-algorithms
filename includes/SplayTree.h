@@ -28,10 +28,10 @@ private:
 	void rotateLeft(TreeNode<T>* x);
 	void rotateRight(TreeNode<T>* y);
 	void splay(TreeNode<T>* x);
-	// Combine trees tree1 and tree2 into a single tree.
+	//! Combine trees tree1 and tree2 into a single tree.
 	TreeNode<T>* join(TreeNode<T>* tree1, TreeNode<T>* tree2);
 
-	// Prints the tree according to the inorder traversal.
+	//! Prints the tree according to the inorder traversal.
 	void print(const TreeNode<T>* tree, std::ostream& out);
 	void deleteTreeNode(TreeNode<T>* node);
 
@@ -40,16 +40,16 @@ public:
 	~SplayTree();
 
 	void insert(T key);
-	// Deletes the node with the key 'key'.
+	//! Deletes the node with the key 'key'.
 	void erase(T key);
-	// Returns the pointer to the node with the key 'key'.
+	//! Returns the pointer to the node with the key 'key'.
 	TreeNode<T>* access(T key);
-	// Returns the pointer to the root.
+	//! Returns the pointer to the root.
 	TreeNode<T>* getRoot();
 	
-	// Prints the tree according to the inorder traversal.
+	//! Prints the tree according to the inorder traversal.
 	void print(std::ostream& out = std::cout);
-	// Deletes all nodes.
+	//! Deletes all nodes.
 	void clear();
 	
 };
@@ -149,7 +149,8 @@ inline void SplayTree<T>::splay(TreeNode<T>* x)
 	}
 }
 
-/* Combine trees tree1 and tree2 into a single tree containing all items from both trees and return 
+/*!
+ * Combine trees tree1 and tree2 into a single tree containing all items from both trees and return 
  * the resulting tree. This operation assumes that all items in tree1 are less than all those in tree2
  * and destroys both tree1 and tree2.
  * 
