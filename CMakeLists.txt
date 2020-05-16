@@ -3,4 +3,11 @@ project(Tree_algorithms)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(Tree_algorithms main.cpp)
+include_directories(includes)
+
+set(SOURCES src/Calculator.cpp)
+set(HEADERS includes/SplayTree.h includes/Calculator.h)
+
+set(TESTS_SOURCES unit-tests/tests-main.cpp unit-tests/tests-calculator.cpp unit-tests/catch.hpp)
+
+add_executable(Tree_algorithms ${TESTS_SOURCES} ${SOURCES} ${HEADERS})
