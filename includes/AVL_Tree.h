@@ -25,7 +25,7 @@ public:
 		this->right = copy->right;
 		this->height = copy->height;
 	}
-
+	
 	T key;
 	AVL_Node *left;
 	AVL_Node *right;
@@ -53,12 +53,13 @@ public:
 private:
 	int height(AVL_Node<T> *N);
 	int getBalance(AVL_Node<T> *N);
-	AVL_Node<T> *rightRotate(AVL_Node<T> *y);
-	AVL_Node<T> *leftRotate(AVL_Node<T> *x);
+	AVL_Node<T>* rightRotate(AVL_Node<T> *y);
+	AVL_Node<T>* leftRotate(AVL_Node<T> *x);
 	AVL_Node<T>* insert(AVL_Node<T>* node, T key);
 	AVL_Node<T>* minValueNode(AVL_Node<T>* node); 
 	AVL_Node<T>* deleteNode(AVL_Node<T>* root, T key);
 	void preOrder(AVL_Node<T> *root);
+	AVL_Node<T>* search(T key, AVL_Node<T>* root);
 };
 
 template <typename T>
@@ -70,6 +71,15 @@ void AVL_Tree<T>::preOrder(AVL_Node<T> *root)
 		preOrder(root->left);
 		preOrder(root->right);
 	}
+}
+
+template<typename T>
+AVL_Node<T>* AVL_Tree<T>::search(T key, AVL_Node<T>* root)
+{
+	if (root == nullptr) return nullptr;
+	else if (key < root->key) return search(key, root->left);
+	else if (key > root->key) return search(key, root->right);
+	else return root;
 }
 
 template <typename T>
