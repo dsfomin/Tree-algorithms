@@ -1,2 +1,2 @@
-# Tree-algorithms
-Demonstration of the tree algorithms class with using of design patterns
+# Tree-variations
+Demonstration of tree data structures using design patterns
