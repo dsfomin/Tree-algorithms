@@ -76,10 +76,11 @@ void AVL_Tree<T>::preOrder(AVL_Node<T> *root)
 template<typename T>
 AVL_Node<T>* AVL_Tree<T>::search(T key, AVL_Node<T>* root)
 {
-	if (root == nullptr) return nullptr;
+	if (root == nullptr) return nullptr;;
 	else if (key < root->key) return search(key, root->left);
 	else if (key > root->key) return search(key, root->right);
 	else return root;
+	
 }
 
 template <typename T>
