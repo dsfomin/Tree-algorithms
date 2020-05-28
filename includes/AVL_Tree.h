@@ -47,18 +47,30 @@ public:
 			this->root->height = root->height;
 		}
 	}
+	//! Inserts the key 'x' into the tree.
 	void insert(T x) { root = insert(root, x); }
+	//! Removes the key 'val' into the tree.
 	void remove(T x) { root = deleteNode(root, x); }
+	//! Prints in preorder.
 	void _cout() { preOrder(root); }
 private:
+	//! Gets height of tree.
 	int height(AVL_Node<T> *N);
+	//! Balances tree.
 	int getBalance(AVL_Node<T> *N);
+	//! Rotates subtree to right.
 	AVL_Node<T>* rightRotate(AVL_Node<T> *y);
+	//! Rotates subtree to left.
 	AVL_Node<T>* leftRotate(AVL_Node<T> *x);
+	//! Inserts the key 'val' into the subtree.
 	AVL_Node<T>* insert(AVL_Node<T>* node, T key);
-	AVL_Node<T>* minValueNode(AVL_Node<T>* node); 
+	//! Returns the pointer to the node with the min key in subtree.
+	AVL_Node<T>* minValueNode(AVL_Node<T>* node);
+	//! Removes the key 'val' into the subtree.
 	AVL_Node<T>* deleteNode(AVL_Node<T>* root, T key);
+	//! Prints in preorder node 'root'.
 	void preOrder(AVL_Node<T> *root);
+	//! Returns the pointer to the node with the key 'key' in subtree.
 	AVL_Node<T>* search(T key, AVL_Node<T>* root);
 };
 

@@ -36,7 +36,7 @@ public:
 	void print(std::ostream& out = std::cout);
 	//! Deletes (free the memory) all nodes.
 	void clear();
-
+	//! Get version 'index' of tree.
 	RBTreeNode<T>* getVersion(unsigned int index);
 };
 

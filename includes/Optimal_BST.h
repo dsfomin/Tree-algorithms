@@ -24,7 +24,6 @@ public:
 	Node* left;
 	Node* parent;
 	unsigned int frequency;
-	Node<T>* clearedNode();
 
 	void setLeft(Node<T>* l) {
 		left = l;
@@ -50,26 +49,42 @@ class BinaryTree
 {
 public:
 	BinaryTree();
+	//! Inserts the key 'val' into the tree.
 	void add(T val);
+	//! Print in preorder.
 	void printPreOrder();
+	//! Print in inorder.
 	void printInOrder();
+	//! Print in postorder.
 	void printPostOrder();
+	//! Get tree size.
 	int size();
+	//! Check if node with key 'val' exists in tree.
 	bool lookup(T val);
+	//! Returns the pointer to the node with the key 'val'.
 	Node<T>* search(T val);
+	//! Search optimal tree and rebild current tree.
 	Node<T>* optimalSearchTree();
 	void setRoot(Node<T>* root) { this->root = root; }
 	Node<T>* getRoot() { return root; }
 private:
 	Node<T>* root;
 	int treeSize;
+	//! Inserts the key 'val' into the subtree.
 	void add(Node<T>** node, T val);
+	//! Check if node with key 'val' exists in subtree.
 	bool lookup(Node<T>* node, T val);
+	//! Print in preorder subtree.
 	void printPreOrder(Node<T>* node);
+	//! Print in inorder subtree.
 	void printInOrder(Node<T>* node);
+	//! Print in postorder subtree.
 	void printPostOrder(Node<T>* node);
+	//! Returns the pointer to the node with the key 'val' in subtree.
 	Node<T>* search(Node<T>* node, T val);
+	//! Push all nodes to vector 'nodes'.
 	void allNodes(Node<T>* root);
+	//! Vector of all nodes.
 	std::vector<Node<T>*> nodes;
 	std::vector<std::vector<std::pair<int, int>>> costMatrix;
 	void build(const std::vector<Node<T>*> nodes, bool left, Node<T>* parent, int begin, int end);
@@ -306,13 +321,4 @@ void BinaryTree<T>::allNodes(Node<T>* root)
 		allNodes(root->left);
 		allNodes(root->right);
 	}
-}
-
-template<typename T>
-Node<T>* Node<T>::clearedNode()
-{
-	Node<T>* tmp;
-	tmp->frequency = this->frequency;
-	tmp->value = this->value;
-	return tmp;
 }
