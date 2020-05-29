@@ -17,6 +17,10 @@ set(HEADERS
 
 set(TESTS_SOURCES
 		unit-tests/catch.hpp
-		unit-tests/tests-main.cpp)
+		unit-tests/tests-main.cpp
+		unit-tests/tests-red-black-tree.cpp
+		unit-tests/tests-splay-tree.cpp
+		unit-tests/tests-avl-tree.cpp
+		unit-tests/tests-optimal-tree.cpp)
 
 add_executable(Tree_algorithms ${TESTS_SOURCES} ${SOURCES} ${HEADERS})
