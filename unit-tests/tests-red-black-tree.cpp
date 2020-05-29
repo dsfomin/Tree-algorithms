@@ -1,5 +1,6 @@
-#include <catch.hpp>
-#include "RedBlackTree.hpp"
+#include "catch.hpp"
+
+#include "RedBlackTree.h"
 
 TEST_CASE("creating tree")
 {

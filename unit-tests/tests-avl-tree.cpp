@@ -1,5 +1,6 @@
 #include "catch.hpp"
-#include <AVL_Tree.h>
+
+#include "AVL_Tree.h"
 
 TEST_CASE("Single node")
 {
