@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "AVLTree.h"
 #include "RedBlackTree.h"
 #include "Vertex.h"
 #include <math.h>
@@ -11,7 +10,7 @@ int RightEnd = 0;
 int RAD = 25;
 QGraphicsScene * Scene;
 
-AVLTree AVLT;
+AVL_Tree<int> AVLT;
 RedBlackTree RBT;
 SplayTree<int> ST;
 
@@ -71,7 +70,7 @@ QPair <int, int> MainWindow::sketch(RBNode *p, int h, int y){
 
 }
 
-QPair<int,int> MainWindow::sketch(AVLNode * p, int h, int y){
+QPair<int,int> MainWindow::sketch(AVL_Node<int> * p, int h, int y){
     if (p == nullptr) return {y,y};
     QPair <int, int> lnr = sketch(p->left, h-75, y);
     if (p->left){
@@ -170,7 +169,7 @@ void MainWindow::on_btn_del_clicked(){
         if (curTree == 1){
             QStringList lis = str.split(" ");
             for (int i = 0; i < lis.size(); ++i){
-                AVLT.drop(lis[i].toInt());
+                AVLT.remove(lis[i].toInt());
             }
             ui->line_input->clear();
             presketch(AVLT.getRoot());

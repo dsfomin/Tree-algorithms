@@ -21,7 +21,6 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
-    AVLTree.h \
     Canvas.h \
     RedBlackTree.h \
     Vertex.h \
