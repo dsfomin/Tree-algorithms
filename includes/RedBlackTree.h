@@ -16,7 +16,7 @@ private:
 
 	//! Prints the tree according to the inorder traversal.
 	void print(const RBTreeNode<KeyType>* tree, std::ostream& out);
-	void deleteRBTreeNode(RBTreeNode<KeyType>* node);
+	
 
 public:
 	RedBlackTree();
@@ -28,6 +28,7 @@ public:
 	RBTreeNode<KeyType>* search(KeyType key);
 	//! Returns the pointer to the root.
 	RBTreeNode<KeyType>* getRoot();
+	void deleteRBTreeNode(RBTreeNode<KeyType>* node);
 	
 	//! Prints the tree according to the inorder traversal.
 	void print(std::ostream& out = std::cout);

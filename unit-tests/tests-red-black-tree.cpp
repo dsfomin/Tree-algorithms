@@ -4,67 +4,62 @@
 
 TEST_CASE("creating tree")
 {
-	RedBlackTree<int> tree;
-	REQUIRE( tree.root() == nullptr );
+	RedBlackTree<int> RBTreeNode;
+	REQUIRE(RBTreeNode.getRoot() == nullptr );
 }
 
 TEST_CASE("Search")
 {
-	RedBlackTree<int> tree;
-	tree.insert(2);
-	tree.insert(3);
-	tree.insert(1);
-	REQUIRE(tree.find(3) == true );
-	REQUIRE(tree.find(5) == false );
+	RedBlackTree<int> RBTreeNode;
+	RBTreeNode.insert(2);
+	RBTreeNode.insert(3);
+	RBTreeNode.insert(1);
+	REQUIRE(RBTreeNode.search(3) == true );
+	REQUIRE(RBTreeNode.search(5) == false );
 }
 
 TEST_CASE( "Insert" ) {
-    RedBlackTree<int> tree;
-    std::ostringstream ostream;
-    REQUIRE( tree.root() == nullptr );
-    tree.print(ostream, tree.root());
-    REQUIRE( ostream.str() == "" );
-    tree.insert( 10 );
-    tree.print(ostream, tree.root());
+    RedBlackTree<int> RBTreeNode;
+    REQUIRE(RBTreeNode.getRoot() == nullptr );
+	RBTreeNode.print(RBTreeNode.getRoot());
+    REQUIRE(ostream.str() == "" );
+	RBTreeNode.insert( 10 );
+	RBTreeNode.print(RBTreeNode.getRoot());
     REQUIRE( ostream.str() == "--b10\n" );
-    tree.insert( 85 );
-    std::ostringstream ostream1;
-    tree.print(ostream1, tree.root());
-    REQUIRE( ostream1.str() ==	 "----r85\n"
-	    			 "--b10\n" );
-    tree.insert( 15 );
-	std::ostringstream ostream2;
-    tree.print(ostream2, tree.root());
+	RBTreeNode.insert( 85 );
+	RBTreeNode.print(RBTreeNode.getRoot());
+	RBTreeNode.insert( 15 );
+	RBTreeNode.print(RBTreeNode.getRoot());
     REQUIRE( ostream2.str() ==	  "----r85\n"
 	    					 "--b15\n"
 	   					 "----r10\n");
-    tree.insert( 70 );
+	RBTreeNode.insert( 70 );
 	std::ostringstream ostream3;
-    tree.print(ostream3, tree.root());
+	RBTreeNode.print(ostream3, RBTreeNode.getRoot());
     REQUIRE( ostream3.str() ==	 		 "----b85\n"
 						 "------r70\n"
 						 "--b15\n"
 						 "----b10\n" );
-    tree.insert( 20 );
+	RBTreeNode.insert( 20 );
 	std::ostringstream ostream4;
-    tree.print(ostream4, tree.root());
+	RBTreeNode.print(ostream4, RBTreeNode.getRoot());
     REQUIRE( ostream4.str() ==	 		  	"------r85\n"
 							"----b70\n"
 							"------r20\n"
 							"--b15\n"
 							"----b10\n" );
-    tree.insert( 60 );
+	RBTreeNode.insert( 60 );
 	std::ostringstream ostream5;
-    tree.print(ostream5, tree.root());
+	RBTreeNode.print(ostream5, RBTreeNode.getRoot());
     REQUIRE( ostream5.str() ==	 		  	"------b85\n"
 							"----r70\n"
 							"--------r60\n"
 							"------b20\n"
 							"--b15\n"
 							"----b10\n" );
-    tree.insert( 30 );
+	RBTreeNode.insert( 30 );
 	std::ostringstream ostream6;
-    tree.print(ostream6, tree.root());
+	RBTreeNode.print(ostream6, RBTreeNode.getRoot());
     REQUIRE( ostream6.str() ==	 		  	"------b85\n"
 							"----r70\n"
 							"--------r60\n"
@@ -72,9 +67,9 @@ TEST_CASE( "Insert" ) {
 							"--------r20\n"
 							"--b15\n"
 							"----b10\n" );
-    tree.insert( 50 );
+	RBTreeNode.insert( 50 );
 	std::ostringstream ostream7;
-    tree.print(ostream7, tree.root());
+	RBTreeNode.print(ostream7, RBTreeNode.getRoot());
     REQUIRE( ostream7.str() ==	 		  	"------b85\n"
 							"----r70\n"
 							"------b60\n"
@@ -83,9 +78,9 @@ TEST_CASE( "Insert" ) {
 							"------b20\n"
 							"----r15\n"
 							"------b10\n" );
-    tree.insert( 65 );
+	RBTreeNode.insert( 65 );
 	std::ostringstream ostream8;
-    tree.print(ostream8, tree.root());
+	RBTreeNode.print(ostream8, RBTreeNode.getRoot());
     REQUIRE( ostream8.str() ==	 		  	"------b85\n"
 							"----r70\n"
 							"--------r65\n"
@@ -95,9 +90,9 @@ TEST_CASE( "Insert" ) {
 							"------b20\n"
 							"----r15\n"
 							"------b10\n" );
-    tree.insert( 80 );
+	RBTreeNode.insert( 80 );
 	std::ostringstream ostream9;
-    tree.print(ostream9, tree.root());
+	RBTreeNode.print(ostream9, RBTreeNode.getRoot());
     REQUIRE( ostream9.str() ==	 		  	"------b85\n"
 							"--------r80\n"
 							"----r70\n"
@@ -108,9 +103,9 @@ TEST_CASE( "Insert" ) {
 							"------b20\n"
 							"----r15\n"
 							"------b10\n" );
-    tree.insert( 90 );
+	RBTreeNode.insert( 90 );
 	std::ostringstream ostream11;
-    tree.print(ostream11, tree.root());
+	RBTreeNode.print(ostream11, RBTreeNode.getRoot());
     REQUIRE( ostream11.str() ==	 		  	"--------r90\n"
 							"------b85\n"
 							"--------r80\n"
@@ -122,9 +117,9 @@ TEST_CASE( "Insert" ) {
 							"------b20\n"
 							"----r15\n"
 							"------b10\n" );
-    tree.insert( 40 );
+	RBTreeNode.insert( 40 );
 	std::ostringstream ostream12;
-    tree.print(ostream12, tree.root());
+	RBTreeNode.print(ostream12, RBTreeNode.getRoot());
     REQUIRE( ostream12.str() ==	 		  	"--------r90\n"
 							"------b85\n"
 							"--------r80\n"
@@ -137,9 +132,9 @@ TEST_CASE( "Insert" ) {
 							"------b20\n"
 							"----b15\n"
 							"------b10\n" );
-    tree.insert( 5 );
+	RBTreeNode.insert( 5 );
 	std::ostringstream ostream13;
-    tree.print(ostream13, tree.root());
+	RBTreeNode.print(ostream13, RBTreeNode.getRoot());
     REQUIRE( ostream13.str() ==	 		  	"--------r90\n"
 							"------b85\n"
 							"--------r80\n"
@@ -153,9 +148,9 @@ TEST_CASE( "Insert" ) {
 							"----b15\n"
 							"------b10\n"
 							"--------r5\n" );
-    tree.insert( 55 );
+	RBTreeNode.insert( 55 );
 	std::ostringstream ostream14;
-    tree.print(ostream14, tree.root());
+	RBTreeNode.print(ostream14, RBTreeNode.getRoot());
     REQUIRE( ostream14.str() ==	 		  	"--------r90\n"
 							"------b85\n"
 							"--------r80\n"
@@ -172,27 +167,27 @@ TEST_CASE( "Insert" ) {
 							"--------r5\n" );
 }
 TEST_CASE( "Delete" ) {
-    RedBlackTree<int> tree;
+    RedBlackTree<int> RBTreeNode;
     std::ostringstream ostream;
-    REQUIRE( tree.root() == nullptr );
-    tree.print(ostream, tree.root());
+    REQUIRE(RBTreeNode.getRoot() == nullptr );
+	RBTreeNode.print(ostream, RBTreeNode.getRoot());
     REQUIRE( ostream.str() == "" );
-    tree.insert( 10 );
-    tree.print(ostream, tree.root());
+	RBTreeNode.insert( 10 );
+	RBTreeNode.print(ostream, RBTreeNode.getRoot());
     REQUIRE( ostream.str() == "--b10\n" );
     //REQUIRE( tree.size() == 1 );
-    tree.remove( 10 );
+	RBTreeNode.remove( 10 );
 	std::ostringstream ostream1;
-    tree.print(ostream1, tree.root());
+	RBTreeNode.print(ostream1, RBTreeNode.getRoot());
     REQUIRE( ostream1.str() == "" );
-    REQUIRE( tree.root() == nullptr );
+    REQUIRE(RBTreeNode.getRoot() == nullptr );
     {
         RedBlackTree<int> tree;
-        tree.insert( 2 );
-        tree.insert( 1 );
-        tree.insert( 3 );
-        tree.insert( 4 );
-        tree.insert( 5 );
+		RBTreeNode.insert( 2 );
+		RBTreeNode.insert( 1 );
+		RBTreeNode.insert( 3 );
+		RBTreeNode.insert( 4 );
+		RBTreeNode.insert( 5 );
         //        std::cout << tree << std::endl;
         //        std::ofstream("tmp") << tree << std::endl;
         //         b2
@@ -202,48 +197,48 @@ TEST_CASE( "Delete" ) {
         //            /  \
         //           /    \
         //         r3      r5
-        tree.print(ostream1, tree.root());
+		RBTreeNode.print(ostream1, RBTreeNode.getRoot());
         REQUIRE( ostream1.str() == 	     		"------r5\n"
 							"----b4\n"
 							"------r3\n"
 							"--b2\n"
 							"----b1\n" );
         //std::cout << tree << std::endl;
-        tree.remove( 2 );
+		RBTreeNode.deleteRBTreeNode( 2 );
         //std::ofstream("tmp") << tree << std::endl;
     }
 
     {
-        RedBlackTree<int> tree;
+        RedBlackTree<int> RBTreeNode;
 	std::ostringstream ostream;
         SECTION( "when brother is black and his sons" ) {
-        RedBlackTree<int> tree;
-	tree.insert( 1 );
-            tree.insert( 2 );
-            tree.insert( 6 );
-            tree.insert( 8 );
-            tree.insert( 9 );
-            tree.insert( 7 );
-            tree.insert( 4 );
-            tree.insert( 4 );
-            tree.insert( 2 );
-            tree.insert( 4 );
-            tree.insert( 4 );
-            tree.remove( 4 );
-            tree.remove( 4 );
-            tree.remove( 4 );
-            tree.remove( 4 );
-            tree.remove( 8 );
-        tree.print(ostream, tree.root());
+        RedBlackTree<int> RBTreeNode;
+		RBTreeNode.insert( 1 );
+		RBTreeNode.insert( 2 );
+		RBTreeNode.insert( 6 );
+		RBTreeNode.insert( 8 );
+		RBTreeNode.insert( 9 );
+		RBTreeNode.insert( 7 );
+		RBTreeNode.insert( 4 );
+		RBTreeNode.insert( 4 );
+		RBTreeNode.insert( 2 );
+		RBTreeNode.insert( 4 );
+		RBTreeNode.insert( 4 );
+		RBTreeNode.deleteRBTreeNode( 4 );
+		RBTreeNode.deleteRBTreeNode( 4 );
+		RBTreeNode.deleteRBTreeNode( 4 );
+		RBTreeNode.deleteRBTreeNode( 4 );
+		RBTreeNode.deleteRBTreeNode( 8 );
+		RBTreeNode.print(ostream, RBTreeNode.getRoot());
         REQUIRE( ostream.str() ==			"----b9\n"
 							"------r7\n"
 							"--b6\n"
 							"------b2\n"
 							"----r2\n"
 							"------b1\n" );
-        tree.remove( 9 );
+		RBTreeNode.deleteRBTreeNode( 9 );
 		std::ostringstream ostream1;
-        tree.print(ostream1, tree.root());
+		RBTreeNode.print(ostream1, RBTreeNode.getRoot());
         REQUIRE( ostream1.str() ==			"----b7\n"
 							"--b6\n"
 							"------b2\n"
@@ -251,21 +246,21 @@ TEST_CASE( "Delete" ) {
 							"------b1\n" );
         }
         SECTION( "when brother is black and his right son is red" ) {
-            tree.insert( 1 );
-            tree.insert( 2 );
-            tree.insert( 3 );
-            tree.insert( 4 );
-            tree.insert( 5 );
-            tree.insert( 6 );
-            tree.insert( 7 );
-            tree.insert( 8 );
-            tree.insert( 9 );
-            tree.insert( 10 );
-            tree.insert( 11 );
-            tree.insert( 0 );
-            tree.remove( 3 );
+			RBTreeNode.insert( 1 );
+			RBTreeNode.insert( 2 );
+			RBTreeNode.insert( 3 );
+			RBTreeNode.insert( 4 );
+			RBTreeNode.insert( 5 );
+			RBTreeNode.insert( 6 );
+			RBTreeNode.insert( 7 );
+			RBTreeNode.insert( 8 );
+			RBTreeNode.insert( 9 );
+			RBTreeNode.insert( 10 );
+			RBTreeNode.insert( 11 );
+			RBTreeNode.insert( 0 );
+			RBTreeNode.deleteRBTreeNode(3);
 		std::ostringstream ostream10;
-            tree.print(ostream10, tree.root());
+		RBTreeNode.print(ostream10, RBTreeNode.getRoot());
         REQUIRE( ostream10.str() ==			"----------r11\n"
 							"--------b10\n"
 							"----------r9\n"
@@ -277,9 +272,9 @@ TEST_CASE( "Delete" ) {
 							"------b2\n"
 							"----b1\n"
 							"------b0\n" );
-            tree.remove( 2 );
+		RBTreeNode.deleteRBTreeNode( 2 );
 		std::ostringstream ostream3;
-            tree.print(ostream3, tree.root());
+		RBTreeNode.print(ostream3, RBTreeNode.getRoot());
         REQUIRE( ostream3.str() ==			"--------r11\n"
 							"------b10\n"
 							"--------r9\n"
@@ -292,26 +287,26 @@ TEST_CASE( "Delete" ) {
 							"--------r0\n" );
         }
         SECTION( "when brother is red" ) {
-            tree.insert( 1 );
-            tree.insert( 2 );
-            tree.insert( 3 );
-            tree.insert( 4 );
-            tree.insert( 5 );
-            tree.insert( 6 );
-            tree.insert( 7 );
-            tree.insert( 8 );
-            tree.insert( 9 );
-            tree.insert( 10 );
-            tree.insert( 11 );
-            tree.insert( 0 );
-            tree.remove( 3 );
-            tree.insert( 5 );
-            tree.insert( 5 );
-            tree.insert( 5 );
-            tree.insert( 5 );
-            tree.insert( 5 );
+			RBTreeNode.insert( 1 );
+			RBTreeNode.insert( 2 );
+			RBTreeNode.insert( 3 );
+			RBTreeNode.insert( 4 );
+			RBTreeNode.insert( 5 );
+			RBTreeNode.insert( 6 );
+			RBTreeNode.insert( 7 );
+			RBTreeNode.insert( 8 );
+			RBTreeNode.insert( 9 );
+			RBTreeNode.insert( 10 );
+			RBTreeNode.insert( 11 );
+			RBTreeNode.insert( 0 );
+			RBTreeNode.deleteRBTreeNode( 3 );
+			RBTreeNode.insert( 5 );
+			RBTreeNode.insert( 5 );
+			RBTreeNode.insert( 5 );
+			RBTreeNode.insert( 5 );
+			RBTreeNode.insert( 5 );
 		std::ostringstream ostream66;
-            tree.print(ostream66, tree.root());
+		RBTreeNode.print(ostream66, RBTreeNode.getRoot());
         REQUIRE( ostream66.str() ==			"----------r11\n"
 							"--------b10\n"
 							"----------r9\n"
@@ -328,9 +323,9 @@ TEST_CASE( "Delete" ) {
 							"------b2\n"
 							"----b1\n"
 							"------b0\n" );
-            tree.remove( 2 );
+		RBTreeNode.deleteRBTreeNode( 2 );
 		std::ostringstream ostream2;
-            tree.print(ostream2, tree.root());
+		RBTreeNode.print(ostream2, RBTreeNode.getRoot());
         REQUIRE( ostream2.str() ==			"--------r11\n"
 							"------b10\n"
 							"--------r9\n"

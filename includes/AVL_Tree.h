@@ -52,7 +52,10 @@ public:
 	//! Removes the key 'val' into the tree.
 	void remove(T x) { root = deleteNode(root, x); }
 	//! Prints in preorder.
+	bool search(T key);
+	//! Returns the pointer to the node with the key 'val'.
 	void _cout() { preOrder(root); }
+	int height();
 private:
 	//! Gets height of tree.
 	int height(AVL_Node<T> *N);
@@ -84,6 +87,10 @@ void AVL_Tree<T>::preOrder(AVL_Node<T> *root)
 		preOrder(root->right);
 	}
 }
+template <class T>
+bool AVL_Tree<T>::search(T key) {
+	return lookup(this->root, key);
+}
 
 template<typename T>
 AVL_Node<T>* AVL_Tree<T>::search(T key, AVL_Node<T>* root)
@@ -93,6 +100,13 @@ AVL_Node<T>* AVL_Tree<T>::search(T key, AVL_Node<T>* root)
 	else if (key > root->key) return search(key, root->right);
 	else return root;
 	
+}
+
+template<typename T>
+inline int AVL_Tree<T>::height()
+{
+	return this->height(root);
+
 }
 
 template <typename T>
