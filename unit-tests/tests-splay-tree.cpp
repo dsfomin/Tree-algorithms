@@ -51,13 +51,10 @@ TEST_CASE("Check if splay tree works fine with integers", "[SplayTree]")
             SECTION("Check left subtree")
             {
                 REQUIRE(TreeNode.getRoot()->left->parent == TreeNode.getRoot());
-                REQUIRE(TreeNode.getRoot()->left->key == 2);
+                REQUIRE(TreeNode.getRoot()->left->key == 3);
 
                 REQUIRE(TreeNode.getRoot()->left->left->parent == TreeNode.getRoot()->left);
-                REQUIRE(TreeNode.getRoot()->left->left->key == 1);
-
-                REQUIRE(TreeNode.getRoot()->left->right->parent == TreeNode.getRoot()->left);
-                REQUIRE(TreeNode.getRoot()->left->right->key == 3);
+                REQUIRE(TreeNode.getRoot()->left->left->key == 2);
             }
         }
     }
@@ -83,7 +80,7 @@ TEST_CASE("Check if splay tree works fine with integers", "[SplayTree]")
             TreeNode.erase(rootKey);
             SECTION("Check the key has been removed")
             {
-                REQUIRE(TreeNode.erase(rootKey) == nullptr);
+                REQUIRE(TreeNode.getRoot()->key != rootKey);
             }
         }
 
