@@ -47,6 +47,11 @@ public:
 			this->root->height = root->height;
 		}
 	}
+
+	~AVL_Tree() {
+		deleteTreeNode(this->root);
+	}
+
 	//! Inserts the key 'x' into the tree.
 	void insert(T x) { root = insert(root, x); }
 	//! Removes the key 'val' into the tree.
@@ -57,10 +62,17 @@ public:
 	void _cout() { preOrder(root); }
 	int height();
 
-        //! Returns the pointer to the root node;
-        AVL_Node<T>* getRoot() {
-            return this->root;
-        }
+	//! Returns the pointer to the root node.
+	AVL_Node<T>* getRoot() {
+		return this->root;
+	}
+
+	//! Deletes all nodes.
+	void clear() {
+		deleteTreeNode(this->root);
+		this->root = nullptr;
+	}
+
 private:
 	//! Gets height of tree.
 	int height(AVL_Node<T> *N);
@@ -80,6 +92,8 @@ private:
 	void preOrder(AVL_Node<T> *root);
 	//! Returns the pointer to the node with the key 'key' in subtree.
 	AVL_Node<T>* search(T key, AVL_Node<T>* root);
+	
+	void deleteTreeNode(AVL_Node<T>* node);
 };
 
 template <typename T>
@@ -105,6 +119,17 @@ AVL_Node<T>* AVL_Tree<T>::search(T key, AVL_Node<T>* root)
 	else if (key > root->key) return search(key, root->right);
 	else return root;
 	
+}
+
+template<typename T>
+inline void AVL_Tree<T>::deleteTreeNode(AVL_Node<T>* node)
+{
+	if (!node) {
+		return;
+	}
+	deleteTreeNode(node->left);
+	deleteTreeNode(node->right);
+	delete node;
 }
 
 template<typename T>
