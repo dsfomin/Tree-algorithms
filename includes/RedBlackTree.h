@@ -14,6 +14,9 @@ private:
 	void rotateLeft(RBTreeNode<KeyType>* x);
 	void rotateRight(RBTreeNode<KeyType>* y);
 
+	void erase(RBTreeNode<KeyType>* z);
+	void eraseFixup(RBTreeNode<KeyType>* x);
+
 	//! Prints the tree according to the inorder traversal.
 	void print(const RBTreeNode<KeyType>* tree, std::ostream& out);
 	
@@ -24,6 +27,8 @@ public:
 
 	//! Inserts the key 'key' into the tree.
 	void insert(KeyType key);
+	//! Deletes the node with the key 'key'.
+	void erase(KeyType key);
 	//! Returns the pointer to the node with the key 'key'.
 	RBTreeNode<KeyType>* search(KeyType key);
 	//! Returns the pointer to the root.
@@ -137,6 +142,123 @@ inline void RedBlackTree<KeyType>::rotateRight(RBTreeNode<KeyType>* y)
 }
 
 template<typename KeyType>
+inline void RedBlackTree<KeyType>::erase(RBTreeNode<KeyType>* z)
+{
+	if (!z) {
+		return;
+	}
+
+	RBTreeNode<KeyType>* x = nullptr;
+	RBTreeNode<KeyType>* y = nullptr;
+	if (!z->left || !z->right) {
+		y = z;
+	}
+	else {
+		y = z->right;
+		while (y->left) {
+			y = y->left;
+		}
+	}
+
+	if (y->left) {
+		x = y->left;
+	}
+	else {
+		x = y->right;
+	}
+
+	if (x) {
+		x->parent = y->parent;
+	}
+
+	if (y->parent) {
+		if (y == y->parent->left) {
+			y->parent->left = x;
+		}
+		else {
+			y->parent->right = x;
+		}
+	}
+	else {
+		this->root = x;
+	}
+
+	if (y != z) {
+		z->key = y->key;
+	}
+
+	if (y->color == COLOR_BLACK) {
+		eraseFixup(x);
+	}
+
+	delete y;
+}
+
+template<typename KeyType>
+inline void RedBlackTree<KeyType>::eraseFixup(RBTreeNode<KeyType>* x)
+{
+	if (!x) {
+		return;
+	}
+
+	while ((x != this->root) && (x->color == COLOR_BLACK)) {
+		if (x == x->parent->left) {
+			RBTreeNode<KeyType>* w = x->parent->right;
+			if (w->color == COLOR_RED) {
+				w->color = COLOR_BLACK;
+				x->parent->color = COLOR_RED;
+				rotateLeft(x->parent);
+				w = x->parent->right;
+			}
+			if ((w->left->color == COLOR_BLACK) && (w->right->color == COLOR_BLACK)) {
+				w->color = COLOR_RED;
+				x = x->parent;
+			}
+			else {
+				if (w->right->color == COLOR_BLACK) {
+					w->left->color = COLOR_BLACK;
+					w->color = COLOR_RED;
+					rotateRight(w);
+					w = x->parent->right;
+				}
+				w->color = x->parent->color;
+				x->parent->color = COLOR_BLACK;
+				w->right->color = COLOR_BLACK;
+				rotateLeft(x->parent);
+				x = this->root;
+			}
+		}
+		else {
+			RBTreeNode<KeyType>* w = x->parent->left;
+			if (w->color == COLOR_RED) {
+				w->color = COLOR_BLACK;
+				x->parent->color = COLOR_RED;
+				rotateRight(x->parent);
+				w = x->parent->left;
+			}
+			if ((w->right->color == COLOR_BLACK) && (w->left->color == COLOR_BLACK)) {
+				w->color = COLOR_RED;
+				x = x->parent;
+			}
+			else {
+				if (w->left->color == COLOR_BLACK) {
+					w->right->color = COLOR_BLACK;
+					w->color = COLOR_RED;
+					rotateLeft(w);
+					w = x->parent->left;
+				}
+				w->color = x->parent->color;
+				x->parent->color = COLOR_BLACK;
+				w->left->color = COLOR_BLACK;
+				rotateRight(x->parent);
+				x = this->root;
+			}
+		}
+	}
+	x->color = COLOR_BLACK;
+}
+
+template<typename KeyType>
 inline void RedBlackTree<KeyType>::print(const RBTreeNode<KeyType>* tree, std::ostream& out)
 {
 	if (!tree) {
@@ -196,6 +318,15 @@ inline void RedBlackTree<KeyType>::insert(KeyType key)
 		y->right = z;
 	}
 	fixup(z);
+}
+
+template<typename KeyType>
+inline void RedBlackTree<KeyType>::erase(KeyType key)
+{
+	RBTreeNode<KeyType>* foundNode = search(key);
+	if (foundNode) {
+		erase(foundNode);
+	}
 }
 
 /*!
