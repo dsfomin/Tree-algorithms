@@ -36,3 +36,26 @@ TEST_CASE( "Insert" ) {
 	REQUIRE_FALSE(foundNode->right);
 	REQUIRE(foundNode->parent->key == 10);
 }
+
+TEST_CASE("Delete")
+{
+	RedBlackTree<int> tree;
+	tree.insert(5);
+	tree.insert(6);
+	tree.insert(7);
+	tree.insert(8);
+
+	tree.erase(6);
+	REQUIRE_FALSE(tree.search(6));
+
+	tree.erase(7);
+	REQUIRE_FALSE(tree.search(7));
+
+	tree.erase(5);
+	REQUIRE_FALSE(tree.search(5));
+
+	tree.erase(8);
+	REQUIRE_FALSE(tree.search(8));
+
+	REQUIRE(tree.getRoot() == nullptr);
+}
