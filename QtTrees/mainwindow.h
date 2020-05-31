@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <bits/stdc++.h>
 #include <QStack>
-#include "RedBlackTree.h"
+#include "../includes/RedBlackTree.h"
 #include "../includes/SplayTree.h"
 #include "../includes/AVL_Tree.h"
 
@@ -24,7 +24,7 @@ public:
    int v(int x);
    QPair<int, int> sketch(TreeNode<int> * p, int h, int y);
    QPair<int, int> sketch(AVL_Node<int> * p, int h, int y);
-   QPair<int, int> sketch(RBNode * p, int h, int y);
+   QPair<int, int> sketch(RBTreeNode<int> * p, int h, int y);
 
    template<class T, class D> void fromOneToAnother(T * p, D &tree);
 private slots:

@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "RedBlackTree.h"
 #include "Vertex.h"
 #include <math.h>
 
@@ -11,7 +10,7 @@ int RAD = 25;
 QGraphicsScene * Scene;
 
 AVL_Tree<int> AVLT;
-RedBlackTree RBT;
+RedBlackTree<int> RBT;
 SplayTree<int> ST;
 
 MainWindow::MainWindow(QWidget *parent)
@@ -51,8 +50,8 @@ template<class T> void MainWindow::presketch(T* p){
 }
 
 
-QPair <int, int> MainWindow::sketch(RBNode *p, int h, int y){
-    if ((p == p->left && p == p->right) || p == nullptr) {
+QPair <int, int> MainWindow::sketch(RBTreeNode<int> *p, int h, int y){
+    if (p == nullptr) {
         QGraphicsItem * item = new Vertex(0, "black",true);
         Scene->addItem(item);
         item->setPos(v(y), v(h));
@@ -63,7 +62,7 @@ QPair <int, int> MainWindow::sketch(RBNode *p, int h, int y){
     Scene->addLine(lnr.first+50, h-25, lnr.second, h-50);
     QPair<int ,int> nr = sketch(p->right, h-75, lnr.first+100);
     Scene->addLine(lnr.first+50, h-25, nr.second, h-50);
-    QGraphicsItem * item = new Vertex(p->key, (p->b?"black":"red"));
+    QGraphicsItem * item = new Vertex(p->key, ((p->color == COLOR_BLACK)?"black":"red"));
     Scene->addItem(item);
     item->setPos(v(lnr.first+50), v(h));
     return {nr.first, lnr.first+50};
@@ -176,7 +175,7 @@ void MainWindow::on_btn_del_clicked(){
         } else if (curTree == 2){
             QStringList lis = str.split(" ");
             for (int i = 0; i < lis.size(); ++i){
-                RBT.drop(lis[i].toInt());
+                RBT.erase(lis[i].toInt());
             }
             ui->line_input->clear();
             presketch(RBT.getRoot());

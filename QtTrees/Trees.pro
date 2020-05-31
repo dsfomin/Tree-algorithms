@@ -22,7 +22,6 @@ SOURCES += \
 
 HEADERS += \
     Canvas.h \
-    RedBlackTree.h \
     Vertex.h \
     mainwindow.h
 
