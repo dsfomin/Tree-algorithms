@@ -56,6 +56,11 @@ public:
 	//! Returns the pointer to the node with the key 'val'.
 	void _cout() { preOrder(root); }
 	int height();
+
+        //! Returns the pointer to the root node;
+        AVL_Node<T>* getRoot() {
+            return this->root;
+        }
 private:
 	//! Gets height of tree.
 	int height(AVL_Node<T> *N);
