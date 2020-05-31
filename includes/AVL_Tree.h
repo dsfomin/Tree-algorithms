@@ -38,7 +38,7 @@ class AVL_Tree {
 public:
 	AVL_Node<T>* root;
 
-	AVL_Tree() {}
+	AVL_Tree() : root(nullptr) {}
 	AVL_Tree(AVL_Node<T>* root) {
 		if (root != nullptr) {
 			this->root->key = root->key;
@@ -52,7 +52,7 @@ public:
 	//! Removes the key 'val' into the tree.
 	void remove(T x) { root = deleteNode(root, x); }
 	//! Prints in preorder.
-	bool search(T key);
+	AVL_Node<T>* search(T key);
 	//! Returns the pointer to the node with the key 'val'.
 	void _cout() { preOrder(root); }
 	int height();
@@ -88,14 +88,14 @@ void AVL_Tree<T>::preOrder(AVL_Node<T> *root)
 	}
 }
 template <class T>
-bool AVL_Tree<T>::search(T key) {
-	return lookup(this->root, key);
+AVL_Node<T>* AVL_Tree<T>::search(T key) {
+	return search(key, this->root);
 }
 
 template<typename T>
 AVL_Node<T>* AVL_Tree<T>::search(T key, AVL_Node<T>* root)
 {
-	if (root == nullptr) return nullptr;;
+	if (root == nullptr) return nullptr;
 	else if (key < root->key) return search(key, root->left);
 	else if (key > root->key) return search(key, root->right);
 	else return root;
@@ -157,7 +157,7 @@ template <typename T>
 AVL_Node<T>* AVL_Tree<T>::insert(AVL_Node<T>* node, T key)
 {
 	if (node == nullptr)
-		return new AVL_Node<T>(key);
+		return root = new AVL_Node<T>(key);
 
 	if (key < node->key)
 		node->left = insert(node->left, key);
