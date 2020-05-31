@@ -5,7 +5,7 @@
 #include <bits/stdc++.h>
 #include <QStack>
 #include "RedBlackTree.h"
-#include "SplayTree.h"
+#include "../includes/SplayTree.h"
 #include "AVLTree.h"
 
 QT_BEGIN_NAMESPACE
@@ -22,7 +22,7 @@ public:
 
    template<class T> void presketch(T* p);
    int v(int x);
-   QPair<int, int> sketch(SNode * p, int h, int y);
+   QPair<int, int> sketch(TreeNode<int> * p, int h, int y);
    QPair<int, int> sketch(AVLNode * p, int h, int y);
    QPair<int, int> sketch(RBNode * p, int h, int y);
 

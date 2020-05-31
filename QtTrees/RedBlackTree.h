@@ -6,9 +6,9 @@
 struct RBNode {
     int key;
     int h;
-    RBNode *l;
-    RBNode *r;
-    RBNode * p;
+    RBNode *left;
+    RBNode *right;
+    RBNode * parent;
     bool b;
 
 };
@@ -20,79 +20,79 @@ class RedBlackTree{
 
 public:
     void leftTurn(RBNode *x) {
-        RBNode *y = x->r;
-        x->r = y->l;
-        if (y->l != NIL) y->l->p = x;
-        if (y != NIL) y->p = x->p;
-        if (x->p) {
-            if (x == x->p->l)
-                x->p->l = y;
+        RBNode *y = x->right;
+        x->right = y->left;
+        if (y->left != NIL) y->left->parent = x;
+        if (y != NIL) y->parent = x->parent;
+        if (x->parent) {
+            if (x == x->parent->left)
+                x->parent->left = y;
             else
-                x->p->r = y;
+                x->parent->right = y;
         } else {
             root = y;
         }
-        y->l = x;
-        if (x != NIL) x->p = y;
+        y->left = x;
+        if (x != NIL) x->parent = y;
     }
 
     void rightTurn(RBNode *x) {
-        RBNode *y = x->l;
-        x->l = y->r;
-        if (y->r != NIL) y->r->p = x;
-        if (y != NIL) y->p = x->p;
-        if (x->p) {
-            if (x == x->p->r)
-                x->p->r = y;
+        RBNode *y = x->left;
+        x->left = y->right;
+        if (y->right != NIL) y->right->parent = x;
+        if (y != NIL) y->parent = x->parent;
+        if (x->parent) {
+            if (x == x->parent->right)
+                x->parent->right = y;
             else
-                x->p->l = y;
+                x->parent->left = y;
         } else {
             root = y;
         }
-        y->r = x;
-        if (x != NIL) x->p = y;
+        y->right = x;
+        if (x != NIL) x->parent = y;
     }
 
     void afterAdd(RBNode *x) {
-        while (x != root && x->p->b == 0) {
-            if (x->p == x->p->p->l) {
-                RBNode *y = x->p->p->r;
+        while (x != root && x->parent->b == 0) {
+            if (x->parent == x->parent->parent->left) {
+                RBNode *y = x->parent->parent->right;
                 if (y->b == 0) {
-                    x->p->b = 1;
+                    x->parent->b = 1;
                     y->b = 1;
-                    x->p->p->b = 0;
-                    x = x->p->p;
+                    x->parent->parent->b = 0;
+                    x = x->parent->parent;
                 } else {
-                    if (x == x->p->r) {
-                        x = x->p;
+                    if (x == x->parent->right) {
+                        x = x->parent;
                         leftTurn(x);
                     }
-                    x->p->b = 1;
-                    x->p->p->b = 0;
-                    rightTurn(x->p->p);
+                    x->parent->b = 1;
+                    x->parent->parent->b = 0;
+                    rightTurn(x->parent->parent);
                 }
             } else {
-                RBNode *y = x->p->p->l;
+                RBNode *y = x->parent->parent->left;
                 if (y->b == 0) {
-                    x->p->b = 1;
+                    x->parent->b = 1;
                     y->b = 1;
-                    x->p->p->b = 0;
-                    x = x->p->p;
+                    x->parent->parent->b = 0;
+                    x = x->parent->parent;
                 } else {
-                    if (x == x->p->l) {
-                        x = x->p;
+                    if (x == x->parent->left) {
+                        x = x->parent;
                         rightTurn(x);
                     }
-                    x->p->b = 1;
-                    x->p->p->b = 0;
-                    leftTurn(x->p->p);
+                    x->parent->b = 1;
+                    x->parent->parent->b = 0;
+                    leftTurn(x->parent->parent);
                 }
             }
         }
         root->b = 1;
     }
 
-    RBNode *add(int data) {
+    RBNode *insert(int data) {
         RBNode *current, *parent, *x;
         current = root;
         parent = nullptr;
@@ -100,19 +100,19 @@ public:
             if (data == current->key) return (current);
             parent = current;
             current = data < current->key ?
-                current->l : current->r;
+                current->left : current->right;
         }
         x = new RBNode;
         x->key = data;
-        x->p = parent;
-        x->l = NIL;
-        x->r = NIL;
+        x->parent = parent;
+        x->left = NIL;
+        x->right = NIL;
         x->b = 0;
         if(parent) {
             if(data<parent->key)
-                parent->l = x;
+                parent->left = x;
             else
-                parent->r = x;
+                parent->right = x;
         } else {
             root = x;
         }
@@ -122,52 +122,52 @@ public:
 
     void afterDrop(RBNode *x) {
         while (x != root && x->b == 1) {
-            if (x == x->p->l) {
-                RBNode *w = x->p->r;
+            if (x == x->parent->left) {
+                RBNode *w = x->parent->right;
                 if (w->b == 0) {
                     w->b = 1;
-                    x->p->b = 0;
-                    leftTurn (x->p);
-                    w = x->p->r;
+                    x->parent->b = 0;
+                    leftTurn (x->parent);
+                    w = x->parent->right;
                 }
-                if (w->l->b == 1 && w->r->b == 1) {
+                if (w->left->b == 1 && w->right->b == 1) {
                     w->b = 0;
-                    x = x->p;
+                    x = x->parent;
                 } else {
-                    if (w->r->b == 1) {
-                        w->l->b = 1;
+                    if (w->right->b == 1) {
+                        w->left->b = 1;
                         w->b = 0;
                         rightTurn (w);
-                        w = x->p->r;
+                        w = x->parent->right;
                     }
-                    w->b = x->p->b;
-                    x->p->b = 1;
-                    w->r->b = 1;
-                    leftTurn (x->p);
+                    w->b = x->parent->b;
+                    x->parent->b = 1;
+                    w->right->b = 1;
+                    leftTurn (x->parent);
                     x = root;
                 }
             } else {
-                RBNode *w = x->p->l;
+                RBNode *w = x->parent->left;
                 if (w->b == 0) {
                     w->b = 1;
-                    x->p->b = 0;
-                    rightTurn (x->p);
-                    w = x->p->l;
+                    x->parent->b = 0;
+                    rightTurn (x->parent);
+                    w = x->parent->left;
                 }
-                if (w->r->b == 1 && w->l->b == 1) {
+                if (w->right->b == 1 && w->left->b == 1) {
                     w->b = 0;
-                    x = x->p;
+                    x = x->parent;
                 } else {
-                    if (w->l->b == 1) {
-                        w->r->b = 1;
+                    if (w->left->b == 1) {
+                        w->right->b = 1;
                         w->b = 0;
                         leftTurn (w);
-                        w = x->p->l;
+                        w = x->parent->left;
                     }
-                    w->b = x->p->b;
-                    x->p->b = 1;
-                    w->l->b = 1;
-                    rightTurn (x->p);
+                    w->b = x->parent->b;
+                    x->parent->b = 1;
+                    w->left->b = 1;
+                    rightTurn (x->parent);
                     x = root;
                 }
             }
@@ -178,22 +178,22 @@ public:
     void dropNode(RBNode *z) {
         RBNode *x, *y;
         if (!z || z == NIL) return;
-        if (z->l == NIL || z->r == NIL) {
+        if (z->left == NIL || z->right == NIL) {
             y = z;
         } else {
-            y = z->r;
-            while (y->l != NIL) y = y->l;
+            y = z->right;
+            while (y->left != NIL) y = y->left;
         }
-        if (y->l != NIL)
-            x = y->l;
+        if (y->left != NIL)
+            x = y->left;
         else
-            x = y->r;
-        x->p = y->p;
-        if (y->p)
-            if (y == y->p->l)
-                y->p->l = x;
+            x = y->right;
+        x->parent = y->parent;
+        if (y->parent)
+            if (y == y->parent->left)
+                y->parent->left = x;
             else
-                y->p->r = x;
+                y->parent->right = x;
         else
             root = x;
 
@@ -214,7 +214,7 @@ public:
                 return (current);
             else
                 current = data<current->key ?
-                    current->l : current->r;
+                    current->left : current->right;
         return nullptr;
     }
 
@@ -226,9 +226,9 @@ public:
     }
     void clear (RBNode * p){
         if (p == nullptr) return;
-        if (p == p->l && p == p->r) return;
-        clear(p->r);
-        clear(p->l);
+        if (p == p->left && p == p->right) return;
+        clear(p->right);
+        clear(p->left);
         delete p;
     }
     void clear(){

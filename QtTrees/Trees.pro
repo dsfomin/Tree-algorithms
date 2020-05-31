@@ -24,7 +24,6 @@ HEADERS += \
     AVLTree.h \
     Canvas.h \
     RedBlackTree.h \
-    SplayTree.h \
     Vertex.h \
     mainwindow.h
 

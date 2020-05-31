@@ -3,7 +3,6 @@
 #include "AVLTree.h"
 #include "RedBlackTree.h"
 #include "Vertex.h"
-#include "SplayTree.h"
 #include <math.h>
 
 
@@ -14,7 +13,7 @@ QGraphicsScene * Scene;
 
 AVLTree AVLT;
 RedBlackTree RBT;
-SplayTree ST;
+SplayTree<int> ST;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -54,16 +53,16 @@ template<class T> void MainWindow::presketch(T* p){
 
 
 QPair <int, int> MainWindow::sketch(RBNode *p, int h, int y){
-    if ((p == p->l && p == p->r) || p == nullptr) {
+    if ((p == p->left && p == p->right) || p == nullptr) {
         QGraphicsItem * item = new Vertex(0, "black",true);
         Scene->addItem(item);
         item->setPos(v(y), v(h));
         return {y,y};
     }
 
-    QPair <int, int> lnr = sketch(p->l, h-75, y);
+    QPair <int, int> lnr = sketch(p->left, h-75, y);
     Scene->addLine(lnr.first+50, h-25, lnr.second, h-50);
-    QPair<int ,int> nr = sketch(p->r, h-75, lnr.first+100);
+    QPair<int ,int> nr = sketch(p->right, h-75, lnr.first+100);
     Scene->addLine(lnr.first+50, h-25, nr.second, h-50);
     QGraphicsItem * item = new Vertex(p->key, (p->b?"black":"red"));
     Scene->addItem(item);
@@ -74,12 +73,12 @@ QPair <int, int> MainWindow::sketch(RBNode *p, int h, int y){
 
 QPair<int,int> MainWindow::sketch(AVLNode * p, int h, int y){
     if (p == nullptr) return {y,y};
-    QPair <int, int> lnr = sketch(p->l, h-75, y);
-    if (p->l){
+    QPair <int, int> lnr = sketch(p->left, h-75, y);
+    if (p->left){
         Scene->addLine(lnr.first+50, h-25, lnr.second, h-50);
     }
-    QPair<int ,int> nr = sketch(p->r, h-75, lnr.first+50);
-    if (p->r){
+    QPair<int ,int> nr = sketch(p->right, h-75, lnr.first+50);
+    if (p->right){
         Scene->addLine(lnr.first+50, h-25, nr.second, h-50);
     }
     QGraphicsItem * item = new Vertex(p->key, "avl");
@@ -88,14 +87,14 @@ QPair<int,int> MainWindow::sketch(AVLNode * p, int h, int y){
     return {nr.first, lnr.first+50};
 }
 
-QPair<int, int> MainWindow::sketch(SNode * p, int h, int y){
+QPair<int, int> MainWindow::sketch(TreeNode<int> * p, int h, int y){
     if (p == nullptr) return {y,y};
-    QPair <int, int> lnr = sketch(p->l, h-75, y);
-    if (p->l){
+    QPair <int, int> lnr = sketch(p->left, h-75, y);
+    if (p->left){
         Scene->addLine(lnr.first+50, h-25, lnr.second, h-50);
     }
-    QPair<int ,int> nr = sketch(p->r, h-75, lnr.first+50);
-    if (p->r){
+    QPair<int ,int> nr = sketch(p->right, h-75, lnr.first+50);
+    if (p->right){
         Scene->addLine(lnr.first+50, h-25, nr.second, h-50);
     }
     QGraphicsItem * item = new Vertex(p->key, "splay");
@@ -111,10 +110,10 @@ int MainWindow::v(int x){
 
 template<class T, class D> void MainWindow::fromOneToAnother(T * p, D &tree){
     if (p == nullptr) return;
-    if (p == p->l && p == p->r) return;
-    fromOneToAnother(p->l, tree);
-    fromOneToAnother(p->r, tree);
-    tree.add(p->key);
+    if (p == p->left && p == p->right) return;
+    fromOneToAnother(p->left, tree);
+    fromOneToAnother(p->right, tree);
+    tree.insert(p->key);
 }
 
 
@@ -124,38 +123,38 @@ void MainWindow::on_btn_add_clicked(){
     QString str = ui->line_input->text();
     if (curTree == 1){
         if (str[0] == ' ' || str == ""){
-            AVLT.add(qrand()%10000);
+            AVLT.insert(qrand()%10000);
             presketch(AVLT.getRoot());
             return;
         }
         QStringList lis = str.split(" ");
         for (int i = 0; i < lis.size(); ++i){
-            AVLT.add(lis[i].toInt());
+            AVLT.insert(lis[i].toInt());
         }
         ui->line_input->clear();
         presketch(AVLT.getRoot());
     } else if (curTree == 2){
         if (str[0] == ' ' || str == ""){
-            RBT.add(qrand()%10000);
+            RBT.insert(qrand()%10000);
             presketch(RBT.getRoot());
             return;
         }
         QStringList lis = str.split(" ");
         for (int i = 0; i < lis.size(); ++i){
-            RBT.add(lis[i].toInt());
+            RBT.insert(lis[i].toInt());
         }
         ui->line_input->clear();
         RBT.print();
         presketch(RBT.getRoot());
     } else {
         if (str[0] == ' ' || str == ""){
-            ST.add(qrand()%10000);
+            ST.insert(qrand()%10000);
             presketch(ST.getRoot());
             return;
         }
         QStringList lis = str.split(" ");
         for (int i = 0; i < lis.size(); ++i){
-            ST.add(lis[i].toInt());
+            ST.insert(lis[i].toInt());
         }
         ui->line_input->clear();
         presketch(ST.getRoot());
@@ -185,7 +184,7 @@ void MainWindow::on_btn_del_clicked(){
         } else {
             QStringList lis = str.split(" ");
             for (int i = 0; i < lis.size(); ++i){
-                ST.drop(lis[i].toInt());
+                ST.erase(lis[i].toInt());
             }
             ui->line_input->clear();
             presketch(ST.getRoot());
@@ -281,7 +280,7 @@ void MainWindow::on_btnTest_clicked()
     ui->progressBar->show();
     if (curTree == 1){
         for (int i = 0; i < 100; ++i){
-            AVLT.add(qrand()*qrand());
+            AVLT.insert(qrand()*qrand());
             presketch(AVLT.getRoot());
             for (int j = 0; j < 5000000; ++j){
 
@@ -291,7 +290,7 @@ void MainWindow::on_btnTest_clicked()
         }
     } else if (curTree == 2){
         for (int i = 0; i < 100; ++i){
-            RBT.add(qrand()*qrand());
+            RBT.insert(qrand()*qrand());
             presketch(RBT.getRoot());
             for (int j = 0; j < 5000000; ++j){
 
@@ -301,7 +300,7 @@ void MainWindow::on_btnTest_clicked()
         }
     } else {
         for (int i = 0; i < 100; ++i){
-            ST.add(qrand()*qrand());
+            ST.insert(qrand()*qrand());
             presketch(ST.getRoot());
             for (int j = 0; j < 5000000; ++j){
 
