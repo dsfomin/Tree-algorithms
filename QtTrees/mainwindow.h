@@ -8,6 +8,22 @@
 #include "../includes/SplayTree.h"
 #include "../includes/AVL_Tree.h"
 
+// TODO: check if it works as expected
+template <typename TreeType>
+class Singleton {
+private:
+    Singleton() {}
+
+public:
+    Singleton(Singleton const&) = delete;
+    void operator=(Singleton const&) = delete;
+
+    static TreeType& getInstance() {
+        static TreeType instance;
+        return instance;
+    }
+};
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE

@@ -9,9 +9,9 @@ int RightEnd = 0;
 int RAD = 25;
 QGraphicsScene * Scene;
 
-AVL_Tree<int> AVLT;
-RedBlackTree<int> RBT;
-SplayTree<int> ST;
+AVL_Tree<int>& AVLT = Singleton<AVL_Tree<int>>::getInstance();
+RedBlackTree<int>& RBT = Singleton<RedBlackTree<int>>::getInstance();
+SplayTree<int>& ST = Singleton<SplayTree<int>>::getInstance();
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
