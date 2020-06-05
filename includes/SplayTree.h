@@ -2,14 +2,10 @@
 
 #include <stdexcept>
 #include <iostream>
-#include <cstddef>
 
 template <typename T>
 class TreeNode {
 public:
-	static std::size_t idGenerator;
-	std::size_t id;
-
 	T key;
 
 	TreeNode<T>* parent;
@@ -55,12 +51,8 @@ public:
 };
 
 template<typename T>
-std::size_t TreeNode<T>::idGenerator = 0;
-
-template<typename T>
-inline TreeNode<T>::TreeNode(T key) : id(idGenerator), key(key), parent(nullptr), left(nullptr), right(nullptr)
+inline TreeNode<T>::TreeNode(T key) : key(key), parent(nullptr), left(nullptr), right(nullptr)
 {
-	idGenerator++;
 }
 
 template<typename T>

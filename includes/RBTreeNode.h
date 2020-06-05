@@ -1,7 +1,5 @@
 #pragma once
 
-#include <cstddef>
-
 enum Color {
 	COLOR_RED,
 	COLOR_BLACK
