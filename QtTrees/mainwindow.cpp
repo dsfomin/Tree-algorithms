@@ -142,7 +142,6 @@ void MainWindow::on_btn_add_clicked(){
             RBT.insert(lis[i].toInt());
         }
         ui->line_input->clear();
-        RBT.print();
         presketch(RBT.getRoot());
     } else {
         if (str[0] == ' ' || str == ""){
