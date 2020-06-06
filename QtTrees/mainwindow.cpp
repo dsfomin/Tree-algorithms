@@ -1,8 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "Vertex.h"
-#include <math.h>
 #include "TreeAdapter.h"
+#include <math.h>
 
 int curTree = 1;
 int RightEnd = 0;
