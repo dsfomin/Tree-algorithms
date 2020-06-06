@@ -22,6 +22,7 @@ SOURCES += \
 
 HEADERS += \
     Canvas.h \
+    TreeAdapter.h \
     Vertex.h \
     mainwindow.h
 
