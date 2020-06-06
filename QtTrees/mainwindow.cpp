@@ -2,16 +2,16 @@
 #include "ui_mainwindow.h"
 #include "Vertex.h"
 #include <math.h>
-
+#include "TreeAdapter.h"
 
 int curTree = 1;
 int RightEnd = 0;
 int RAD = 25;
 QGraphicsScene * Scene;
 
-AVL_Tree<int>& AVLT = Singleton<AVL_Tree<int>>::getInstance();
-RedBlackTree<int>& RBT = Singleton<RedBlackTree<int>>::getInstance();
-SplayTree<int>& ST = Singleton<SplayTree<int>>::getInstance();
+AvlTreeAdapter<int> AVLT(&Singleton<AVL_Tree<int>>::getInstance());
+RBTreeAdapter<int> RBT(&Singleton<RedBlackTree<int>>::getInstance());
+SplayTreeAdapter<int> ST(&Singleton<SplayTree<int>>::getInstance());
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -167,7 +167,7 @@ void MainWindow::on_btn_del_clicked(){
         if (curTree == 1){
             QStringList lis = str.split(" ");
             for (int i = 0; i < lis.size(); ++i){
-                AVLT.remove(lis[i].toInt());
+                AVLT.erase(lis[i].toInt());
             }
             ui->line_input->clear();
             presketch(AVLT.getRoot());
