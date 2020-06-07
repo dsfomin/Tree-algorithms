@@ -13,7 +13,8 @@ set(HEADERS
 		includes/SplayTree.h
 		includes/AVL_Tree.h
 		includes/Optimal_BST.h
-		includes/Persistent_RBT.h)
+		includes/Persistent_RBT.h
+		includes/TreeIter.h)
 
 set(TESTS_SOURCES
 		unit-tests/catch.hpp
